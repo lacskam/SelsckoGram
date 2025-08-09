@@ -44,12 +44,12 @@ void* handle_client(void* arg) {
              free(payload);
             fd=STAUS_ACCEPTING;
         }
-        printf("Тип: 0x%02X, Сообщение: %s\n", header.type, payload);
+        printf("type: 0x%02X, message: %s\n", header.type, payload);
 
         send_packet(fd,0x01,payload);
 
         if (strncmp(payload, "end", 3) == 0) {
-                      printf("Received 'end'.\n");
+                      printf("received 'end'.\n");
 
                       free(payload);
                       break;
@@ -59,7 +59,7 @@ void* handle_client(void* arg) {
 
 
     close(fd);
-    printf("Клиент отключён.\n");
+    printf("client discnected.\n");
     return NULL;
 
 }
