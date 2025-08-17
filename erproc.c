@@ -58,3 +58,41 @@ void Connect(int sockFd,const struct sockaddr *addr, socklen_t addrlen) {
     }
 
 }
+
+void *Malloc(size_t size) {
+    void *ptr=malloc(size);
+    if(!ptr)
+    {
+        perror("memory allocation failed\n");
+        exit(EXIT_FAILURE);
+    }
+    return ptr;
+}
+
+int Write(int sockFd, const struct sockaddr *addr, size_t len)
+{
+    int _write=write(sockFd,addr,len);
+    if(_write==-1){
+        perror("write error");
+        close(sockFd);
+        return -1;
+    }
+    return 0;
+}
+
+
+
+int Read(int sockFd, const struct sockaddr *addr, size_t len)
+{
+    ssize_t _read=read(sockFd,addr,len);
+    if(_read==-1){
+        perror("read error");
+        close(sockFd);
+        return -1;
+    }
+    else if(_read==0){
+        printf("end of file or client disconect\n");
+        return 0;
+    }
+    return 0;
+}

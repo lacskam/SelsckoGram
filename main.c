@@ -18,41 +18,23 @@ void* handle_client(void* arg) {
     free(arg);
 
     while(1) {
-        ssize_t nread;
+        int nread;
 
         packet header;
-        nread = read(fd,&header,sizeof(packet));
+        Read(fd,&header,sizeof(packet));
 
-        if (nread == -1) {
-            perror("read error");
+        uint8_t* payload = Malloc(header.payload_size + 1);
+        Read(fd,payload,header.payload_size);
 
-            exit(EXIT_FAILURE);
-
-        }
-
-        uint8_t* payload = malloc(header.payload_size + 1);
-        nread = read(fd,payload,header.payload_size);
-        if (nread == -1) {
-            perror("read error");
-             free(payload);
-            exit(EXIT_FAILURE);
-
-        }
-
-        if (nread == 0) {
-            printf("end of file or client disconect\n");
-             free(payload);
-            fd=STAUS_ACCEPTING;
-        }
         printf("type: 0x%02X, message: %s\n", header.type, payload);
 
         send_packet(fd,0x01,payload);
 
         if (strncmp(payload, "end", 3) == 0) {
-                      printf("received 'end'.\n");
+            printf("received 'end'.\n");
 
-                      free(payload);
-                      break;
+            free(payload);
+            break;
         }
         free(payload);
   }
@@ -78,7 +60,7 @@ int main() {
 
     while (1) {
         printf("waiting clients.\n");
-        int* client_fd = malloc(sizeof(int));
+        int* client_fd = Malloc(sizeof(int));
 
         *client_fd = Accept(servSocket, (struct sockaddr *)&adr,&adrlen);
         printf("client conected.\n");
@@ -92,12 +74,7 @@ int main() {
       } else {
            pthread_detach(tid);
       }
-
-
-
     }
-
-
 
        close(servSocket);
 
