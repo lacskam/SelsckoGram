@@ -5,9 +5,9 @@
 #include <netinet/in.h>
 #include<arpa/inet.h>
 #include <unistd.h>
-#include "erproc.h"
+#include "erproc/erproc.h"
 #include <string.h>
-#include "proto.h"
+#include "proto/proto.h"
 
 int main() {
     int fd =  Socket(AF_INET, SOCK_STREAM, 0);

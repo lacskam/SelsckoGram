@@ -69,12 +69,13 @@ void *Malloc(size_t size) {
     return ptr;
 }
 
-int Write(int sockFd, const struct sockaddr *addr, size_t len)
+
+int Write(int fd, void *buf, size_t size)
 {
-    int _write=write(sockFd,addr,len);
+    int _write=write(fd,buf,size);
     if(_write==-1){
         perror("write error");
-        close(sockFd);
+        close(fd);
         return -1;
     }
     return 0;
@@ -82,12 +83,12 @@ int Write(int sockFd, const struct sockaddr *addr, size_t len)
 
 
 
-int Read(int sockFd, const struct sockaddr *addr, size_t len)
+int Read(int fd, void *buf, size_t size)
 {
-    ssize_t _read=read(sockFd,addr,len);
+    ssize_t _read=read(fd,buf,size);
     if(_read==-1){
         perror("read error");
-        close(sockFd);
+        close(fd);
         return -1;
     }
     else if(_read==0){
