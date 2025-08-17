@@ -17,6 +17,8 @@ typedef struct
 
 #pragma pack(pop)
 
+int build_packet(packet **pkt,uint8_t type, const char *message);
+int parce_packet(int fd, uint8_t **payload);
 int send_packet(int fd, uint8_t type, const char* message);
 
 #endif // PROTO_H

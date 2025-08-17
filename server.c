@@ -8,8 +8,8 @@
 #include <string.h>
 #include <pthread.h>
 
-#include "erproc.h"
-#include "proto.h"
+#include "erproc/erproc.h"
+#include "proto/proto.h"
 #define STAUS_ACCEPTING -111
 
 void* handle_client(void* arg) {
@@ -18,15 +18,15 @@ void* handle_client(void* arg) {
     free(arg);
 
     while(1) {
-        int nread;
 
-        packet header;
-        Read(fd,&header,sizeof(packet));
+        uint8_t *payload = NULL;
+        int nread = parce_packet(fd, &payload);
 
-        uint8_t* payload = Malloc(header.payload_size + 1);
-        Read(fd,payload,header.payload_size);
 
-        printf("type: 0x%02X, message: %s\n", header.type, payload);
+        if (!nread) {
+            perror("error to parce packet");
+            continue;
+        }
 
         send_packet(fd,0x01,payload);
 
@@ -37,7 +37,8 @@ void* handle_client(void* arg) {
             break;
         }
         free(payload);
-  }
+
+    }
 
 
     close(fd);
