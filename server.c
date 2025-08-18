@@ -3,51 +3,25 @@
 #include <stdlib.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include<arpa/inet.h>
+#include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
 #include <pthread.h>
-
+#include <glib.h>
 #include "erproc/erproc.h"
 #include "proto/proto.h"
 #define STAUS_ACCEPTING -111
-
-void* handle_client(void* arg) {
-
-    int fd = *(int*)arg;
-    free(arg);
-
-    while(1) {
-
-        uint8_t *payload = NULL;
-        int nread = parce_packet(fd, &payload);
+#include "selscserv_processing/selscservprocessing.h"
 
 
-        if (!nread) {
-            perror("error to parce packet");
-            continue;
-        }
+GHashTable *users;
 
-        send_packet(fd,0x01,payload);
-
-        if (strncmp(payload, "end", 3) == 0) {
-            printf("received 'end'.\n");
-
-            free(payload);
-            break;
-        }
-        free(payload);
-
-    }
-
-
-    close(fd);
-    printf("client discnected.\n");
-    return NULL;
-
-}
 
 int main() {
+
+
+    users = g_hash_table_new(g_int_hash, g_int_equal);
+
     int servSocket = Socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in adr = {0};
     adr.sin_family = AF_INET;
@@ -64,7 +38,9 @@ int main() {
         int* client_fd = Malloc(sizeof(int));
 
         *client_fd = Accept(servSocket, (struct sockaddr *)&adr,&adrlen);
+
         printf("client conected.\n");
+        push_connected_client(*client_fd);
 
       pthread_t tid;
 

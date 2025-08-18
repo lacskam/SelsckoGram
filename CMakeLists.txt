@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.16)
 
 project(selsckoGram LANGUAGES C)
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GLIB REQUIRED glib-2.0)
+
+
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/proto
@@ -10,10 +14,18 @@ include_directories(
 
 add_executable(selsckoGram server.c
     erproc/erproc.h erproc/erproc.c
-    proto/proto.h proto/proto.c)
+    proto/proto.h proto/proto.c
+    proto/selsc_client/selsc_client.c
+    proto/selsc_client/selsc_client.h
+    selscserv_processing/selscservprocessing.h selscserv_processing/selscservprocessing.c)
 
 include(GNUInstallDirs)
 install(TARGETS selsckoGram
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+target_include_directories(selsckoGram PRIVATE ${GLIB_INCLUDE_DIRS})
+target_compile_options(selsckoGram PRIVATE ${GLIB_CFLAGS} ${GLIB_CFLAGS_OTHER})
+target_link_libraries(selsckoGram PRIVATE ${GLIB_LIBRARIES})
+
