@@ -1,10 +1,10 @@
 #ifndef SELSC_CLIENT_H
 #define SELSC_CLIENT_H
 
-#include <sndint.h>
+#include <stdint.h>
 #include <unistd.h>
 #include <pthread.h>
-#include <stdlib.h>
+
 
 
 typedef struct {

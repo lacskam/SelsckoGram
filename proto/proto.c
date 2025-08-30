@@ -14,7 +14,7 @@ int build_packet(packet **pkt,uint8_t type, const char *message) {
 
 
 int parce_packet(int fd,uint8_t **payload) {
-      
+
 
       packet header;
       Read(fd,&header,sizeof(packet));
