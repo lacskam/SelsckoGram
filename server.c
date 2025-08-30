@@ -7,20 +7,30 @@
 #include <unistd.h>
 #include <string.h>
 #include <pthread.h>
-#include <glib.h>
+
+
+#include"include/uthash/include/uthash.h"
+
 #include "erproc/erproc.h"
 #include "proto/proto.h"
 #define STAUS_ACCEPTING -111
 #include "selscserv_processing/selscservprocessing.h"
 
 
-GHashTable *users;
+struct users {
+    int id;            /* we'll use this field as the key */
+    int fd;
+    UT_hash_handle hh; /* makes this structure hashable */
+};
+
+
+struct users *selsc_users = NULL;
 
 
 int main() {
 
 
-    users = g_hash_table_new(g_int_hash, g_int_equal);
+
 
     int servSocket = Socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in adr = {0};
