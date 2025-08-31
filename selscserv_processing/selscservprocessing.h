@@ -12,13 +12,13 @@
 #include <glib.h>
 #include "../erproc/erproc.h"
 #include "../proto/proto.h"
-
+#include "selsc_client/selsc_client.h"
 #include"../include/uthash/include/uthash.h"
 
 
 struct users {
     int id;            /* we'll use this field as the key */
-    int fd;
+    selsc_client client;
     UT_hash_handle hh; /* makes this structure hashable */
 };
 

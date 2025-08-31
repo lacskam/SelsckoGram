@@ -11,7 +11,7 @@ typedef struct {
   uint32_t user_id;
   int user_fd;
   pthread_t user_tid;
-} client;
+} selsc_client;
 
 
 

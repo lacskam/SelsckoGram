@@ -17,11 +17,6 @@
 #include "selscserv_processing/selscservprocessing.h"
 
 
-struct users {
-    int id;            /* we'll use this field as the key */
-    int fd;
-    UT_hash_handle hh; /* makes this structure hashable */
-};
 
 
 struct users *selsc_users = NULL;
@@ -44,18 +39,18 @@ int main() {
     int fd=STAUS_ACCEPTING;
 
     while (1) {
-        printf("waiting clients.\n");
+        printf("[LOG] - waiting clients - [server]\n");
         int* client_fd = Malloc(sizeof(int));
 
         *client_fd = Accept(servSocket, (struct sockaddr *)&adr,&adrlen);
 
-        printf("client conected.\n");
+        printf("[LOG] - client conected - [server]\n");
         push_connected_client(*client_fd);
 
       pthread_t tid;
 
       if (pthread_create(&tid,NULL,handle_client,client_fd)!=0) {
-        perror("pthread_create error");
+        perror("[LOG] - pthread_create error - [server]");
             close(*client_fd);
             free(client_fd);
       } else {
