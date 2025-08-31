@@ -35,8 +35,8 @@ int main() {
 
         }
 
-        uint8_t* payload = malloc(header.payload_size + 1);
-        nread = read(fd,payload,header.payload_size);
+        uint8_t* payload = malloc(header.header.payload_size + 1);
+        nread = read(fd,payload,header.header.payload_size);
         if (nread == -1) {
             perror("read error");
          
@@ -48,7 +48,7 @@ int main() {
             printf("end of file or client disconect\n");
             
         }
-        printf("Тип: 0x%02X, Сообщение: %s\n", header.type, payload);
+        printf("Тип: 0x%02X, Сообщение: %s\n", header.header.type, payload);
 
        
      }

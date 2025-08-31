@@ -15,14 +15,14 @@ void* handle_client(void* arg) {
 
 
         if (!nread) {
-            perror("error to parce packet");
+            perror("[ERROR] - error to parce packet - [handle_client]");
             continue;
         }
 
         // send_packet(fd,0x01,payload);
         broadcast(payload);
         if (strncmp(payload, "end", 3) == 0) {
-            printf("received 'end'.\n");
+            printf("[LOG] - received 'end' - [handle_client]\n");
 
             free(payload);
             break;
@@ -33,34 +33,39 @@ void* handle_client(void* arg) {
 
 
     close(fd);
-    printf("client discnected.\n");
+    printf("[LOG] - client discnected - [handle_client]\n");
     return NULL;
 
 }
 
 
 int push_connected_client(int fd) {
+   if (fd == -1) {
+        perror("[ERROR] - invalid file descriptor - [push_connected_client]\n");
+        return -1;
+    }
 
     static int id_count = 0;
     int id = id_count++;
 
-    printf("client 1.\n");
-
-    printf("client 2.\n");
     struct users *user;
 
     HASH_FIND_INT(selsc_users, &id, user);
     if (user==NULL) {
       user = (struct users *)malloc(sizeof *user);
+      user->client.user_fd = fd;
 
-      user->fd = fd;
-      user->id = id;
+      user->client.user_id = id;
+
 
       HASH_ADD_INT(selsc_users,id,user);
-         printf("client added.\n");
+         printf("[LOG] - client added - [push_connected client]\n");
+    } else {
+        perror("[ERROR] - user has already been created - [push_connected client]\n");
+        return -2;
     }
 
-    printf("client 3.\n");
+
     return id;
 }
 
@@ -80,9 +85,9 @@ void broadcast(uint8_t *payload) {
 
 
      for (s = selsc_users; s != NULL; s = s->hh.next) {
-            printf("user id %d:\n", s->id);
+            printf("[LOG] - user id %d: - [broadcast]\n", s->client.user_id);
 
-          send_packet(s->fd,0x01,payload);
+          send_packet(s->client.user_fd,0x01,payload);
         }
 
 
