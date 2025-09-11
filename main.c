@@ -7,9 +7,15 @@
 #include <unistd.h>
 #include <string.h>
 #include <pthread.h>
+<<<<<<< HEAD:main.c
 
 #include "erproc.h"
 #include "proto.h"
+=======
+#include"uthash.h"
+#include "erproc/erproc.h"
+#include "proto/proto.h"
+>>>>>>> 54cbe80 (client crash bug fixed):server.c
 #define STAUS_ACCEPTING -111
 
 void* handle_client(void* arg) {
@@ -39,6 +45,7 @@ void* handle_client(void* arg) {
         free(payload);
   }
 
+<<<<<<< HEAD:main.c
 
     close(fd);
     printf("client discnected.\n");
@@ -47,6 +54,12 @@ void* handle_client(void* arg) {
 }
 
 int main() {
+=======
+struct users *selsc_users = NULL;
+
+int main() {
+
+>>>>>>> 54cbe80 (client crash bug fixed):server.c
     int servSocket = Socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in adr = {0};
     adr.sin_family = AF_INET;
@@ -65,20 +78,25 @@ int main() {
         *client_fd = Accept(servSocket, (struct sockaddr *)&adr,&adrlen);
         printf("client conected.\n");
 
-      pthread_t tid;
+        pthread_t tid;
 
+<<<<<<< HEAD:main.c
       if (pthread_create(&tid,NULL,handle_client,client_fd)!=0) {
         perror("pthread_create error");
+=======
+        if (pthread_create(&tid,NULL,handle_client,client_fd)!=0) {
+            perror("[LOG] - pthread_create error - [server]");
+>>>>>>> 54cbe80 (client crash bug fixed):server.c
             close(*client_fd);
             free(client_fd);
-      } else {
-           pthread_detach(tid);
-      }
+        } else {
+            pthread_detach(tid);
+        }
     }
 
-       close(servSocket);
+    close(servSocket);
 
-      return 0;
+    return 0;
 }
 
 

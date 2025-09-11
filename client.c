@@ -16,21 +16,21 @@ int main() {
     adr.sin_family = AF_INET;
     adr.sin_port = htons(34543);
     inet_pton(AF_INET,"127.0.0.1",&adr.sin_addr);
-     Connect(fd,(struct sockaddr *) &adr,sizeof adr);
-     while (1) {
-         char message[256];
-         if (!fgets(message, sizeof message, stdin))
-             break;
+    Connect(fd,(struct sockaddr *) &adr,sizeof adr);
+    while (1) {
+        char message[256];
+        if (!fgets(message, sizeof message, stdin))
+            break;
         
-         send_packet(fd,0x01,message);
+        send_packet(fd,0x01,message);
 
-           ssize_t nread;
-         packet header;
+        ssize_t nread;
+        packet header;
         nread = read(fd,&header,sizeof(packet));
 
         if (nread == -1) {
             perror("read error");
-      
+
             exit(EXIT_FAILURE);
 
         }
@@ -39,7 +39,7 @@ int main() {
         nread = read(fd,payload,header.payload_size);
         if (nread == -1) {
             perror("read error");
-         
+
             exit(EXIT_FAILURE);
 
         }
@@ -50,11 +50,11 @@ int main() {
         }
         printf("Тип: 0x%02X, Сообщение: %s\n", header.type, payload);
 
-       
-     }
+
+    }
 
 
-     close(fd);
+    close(fd);
 
     return 0;
 }
