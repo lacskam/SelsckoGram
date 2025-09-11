@@ -48,12 +48,21 @@ int main() {
             printf("end of file or client disconect\n");
             
         }
+<<<<<<< HEAD
         printf("Тип: 0x%02X, Сообщение: %s\n", header.type, payload);
 
 
     }
 
 
+=======
+        printf("Тип: 0x%02X, Сообщение: %s\n", header.header.type, payload);
+
+
+    }
+
+
+>>>>>>> 54cbe80 (client crash bug fixed)
     close(fd);
 
     return 0;
