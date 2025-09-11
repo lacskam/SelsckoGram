@@ -1,0 +1,17 @@
+# ninja log v6
+2	42	1757609647582399291	CMakeFiles/selsckoGram.dir/proto/selsc_client/selsc_client.c.o	8c478813fcde9dcf
+3	63	1757609854257566138	CMakeFiles/selsckoGram.dir/proto/proto.c.o	a4d9624ef4fc6789
+2	154	1757609854257566138	CMakeFiles/selsckoGram.dir/server.c.o	192a00c54e1ed513
+1	96	1757609647582399291	CMakeFiles/selsckoGram.dir/erproc/erproc.c.o	9aeadc3af127870a
+3	183	1757609854257566138	CMakeFiles/selsckoGram.dir/selscserv_processing/selscservprocessing.c.o	8b1c7d275120422b
+183	224	1757609854437565586	selsckoGram	11febc0a2bccf986
+1	98	1757608334867353210	CMakeFiles/tcpServer.dir/erproc.c.o	ffdb49c998e0d831
+1	92	1757608334867353210	CMakeFiles/tcpServer.dir/proto.c.o	f2eb06bf8d7bce56
+3	54	1757610030861466389	CMakeFiles/selsckoGram.dir/proto/selsc_client/selsc_client.c.o	8c478813fcde9dcf
+2	73	1757610030857466385	CMakeFiles/selsckoGram.dir/proto/proto.c.o	a4d9624ef4fc6789
+2	77	1757610030857466385	CMakeFiles/selsckoGram.dir/erproc/erproc.c.o	9aeadc3af127870a
+2	156	1757610030857466385	CMakeFiles/selsckoGram.dir/server.c.o	192a00c54e1ed513
+3	194	1757610030861466389	CMakeFiles/selsckoGram.dir/selscserv_processing/selscservprocessing.c.o	8b1c7d275120422b
+195	230	1757610031053466586	selsckoGram	11febc0a2bccf986
+2	81	1757610227241672281	CMakeFiles/selsckoGram.dir/erproc/erproc.c.o	9aeadc3af127870a
+82	134	1757610227321671074	selsckoGram	11febc0a2bccf986

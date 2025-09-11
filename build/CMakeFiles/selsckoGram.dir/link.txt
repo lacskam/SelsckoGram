@@ -1,0 +1,1 @@
+/usr/bin/gcc CMakeFiles/selsckoGram.dir/server.c.o CMakeFiles/selsckoGram.dir/erproc/erproc.c.o CMakeFiles/selsckoGram.dir/proto/proto.c.o CMakeFiles/selsckoGram.dir/proto/selsc_client/selsc_client.c.o CMakeFiles/selsckoGram.dir/selscserv_processing/selscservprocessing.c.o -o selsckoGram  -lglib-2.0 

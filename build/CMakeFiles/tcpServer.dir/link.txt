@@ -1,0 +1,1 @@
+/usr/bin/gcc CMakeFiles/tcpServer.dir/main.c.o CMakeFiles/tcpServer.dir/erproc.c.o CMakeFiles/tcpServer.dir/proto.c.o -o tcpServer 

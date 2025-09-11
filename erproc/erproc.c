@@ -8,7 +8,7 @@
 int Socket(int domain, int type,int protocol) {
     int res = socket(domain, type, protocol);
     if (res == -1) {
-        perror("socket create error\n");
+        perror("[ERROR] - socket create error - [erproc]\n");
         exit(EXIT_FAILURE);
     }
 
@@ -18,7 +18,7 @@ int Socket(int domain, int type,int protocol) {
 void Bind(int sockFd,const struct sockaddr *addr, socklen_t addrlen) {
     int res = bind(sockFd,addr,addrlen);
     if (res == -1) {
-        perror("bind error\n");
+        perror("[ERROR] - bind error - [erproc]\n");
         close(sockFd);
         exit(EXIT_FAILURE);
     }
@@ -28,7 +28,7 @@ void Bind(int sockFd,const struct sockaddr *addr, socklen_t addrlen) {
 void Listen(int sockFd, int backlog) {
     int res = listen(sockFd,backlog);
     if (res == -1) {
-        perror("listen error\n");
+        perror("[ERROR] - listen error - [erproc]\n");
         exit(EXIT_FAILURE);
     }
 
@@ -39,7 +39,7 @@ void Listen(int sockFd, int backlog) {
 int Accept(int sockFd, struct sockaddr *addr, socklen_t *addrlen) {
     int res = accept(sockFd,addr,addrlen);
     if (res == -1) {
-        perror("accept error\n");
+        perror("[ERROR] - accept error - [erproc]\n");
         exit(EXIT_FAILURE);
     }
 
@@ -53,7 +53,7 @@ int Accept(int sockFd, struct sockaddr *addr, socklen_t *addrlen) {
 void Connect(int sockFd,const struct sockaddr *addr, socklen_t addrlen) {
     int res = connect(sockFd,addr,addrlen);
     if (res == -1) {
-        perror("connect error\n");
+        perror("[ERROR] - connect error - [erproc]\n");
         exit(EXIT_FAILURE);
     }
 
@@ -63,18 +63,19 @@ void *Malloc(size_t size) {
     void *ptr=malloc(size);
     if(!ptr)
     {
-        perror("memory allocation failed\n");
+        perror("[ERROR] - memory allocation failed - [erproc]\n");
         exit(EXIT_FAILURE);
     }
     return ptr;
 }
 
-int Write(int sockFd, const struct sockaddr *addr, size_t len)
+
+int Write(int fd, void *buf, size_t size)
 {
-    int _write=write(sockFd,addr,len);
+    int _write=write(fd,buf,size);
     if(_write==-1){
-        perror("write error");
-        close(sockFd);
+        perror("[ERROR] - write error - [erproc]");
+        close(fd);
         return -1;
     }
     return 0;
@@ -82,17 +83,15 @@ int Write(int sockFd, const struct sockaddr *addr, size_t len)
 
 
 
-int Read(int sockFd, const struct sockaddr *addr, size_t len)
+int Read(int fd, void *buf, size_t size)
 {
-    ssize_t _read=read(sockFd,addr,len);
+    ssize_t _read=read(fd,buf,size);
     if(_read==-1){
-        perror("read error");
-        close(sockFd);
-        return -1;
+        perror("[ERROR] - read error - [erproc]");
+        close(fd);
     }
     else if(_read==0){
-        printf("end of file or client disconect\n");
-        return 0;
+        printf("[LOG] - client disconnected - [erporoc]\n");
     }
-    return 0;
+    return _read;
 }

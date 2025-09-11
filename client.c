@@ -5,9 +5,9 @@
 #include <netinet/in.h>
 #include<arpa/inet.h>
 #include <unistd.h>
-#include "erproc.h"
+#include "erproc/erproc.h"
 #include <string.h>
-#include "proto.h"
+#include "proto/proto.h"
 
 int main() {
     int fd =  Socket(AF_INET, SOCK_STREAM, 0);
@@ -35,8 +35,8 @@ int main() {
 
         }
 
-        uint8_t* payload = malloc(header.payload_size + 1);
-        nread = read(fd,payload,header.payload_size);
+        uint8_t* payload = malloc(header.header.payload_size + 1);
+        nread = read(fd,payload,header.header.payload_size);
         if (nread == -1) {
             perror("read error");
 
@@ -48,21 +48,12 @@ int main() {
             printf("end of file or client disconect\n");
             
         }
-<<<<<<< HEAD
-        printf("Тип: 0x%02X, Сообщение: %s\n", header.type, payload);
-
-
-    }
-
-
-=======
         printf("Тип: 0x%02X, Сообщение: %s\n", header.header.type, payload);
 
 
     }
 
 
->>>>>>> 54cbe80 (client crash bug fixed)
     close(fd);
 
     return 0;
