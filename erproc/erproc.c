@@ -1,5 +1,6 @@
 #include <sys/types.h>
 #include <stdio.h>
+#include <errno.h>
 #include <stdlib.h>
 #include <sys/socket.h>
 #include <unistd.h>
@@ -74,7 +75,7 @@ int Write(int fd, void *buf, size_t size)
 {
     int _write=write(fd,buf,size);
     if(_write==-1){
-        perror("[ERROR] - write error - [erproc]");
+        perror("[ERROR] - write error - [erproc]\n");
         close(fd);
         return -1;
     }
@@ -85,13 +86,18 @@ int Write(int fd, void *buf, size_t size)
 
 int Read(int fd, void *buf, size_t size)
 {
-    ssize_t _read=read(fd,buf,size);
-    if(_read==-1){
-        perror("[ERROR] - read error - [erproc]");
-        close(fd);
+    ssize_t bytes_read=read(fd,buf,size);
+    if(bytes_read==-1){
+        if(errno==ECONNRESET){
+            perror("[ERROR] - Client crashed or connection reset - [erproc]\n");
+            return -2; //client crashed
+        }
+        else{
+            perror("[ERROR] - read error: %s - [erproc]\n");
+        }
     }
-    else if(_read==0){
+    else if(bytes_read==0){
         printf("[LOG] - client disconnected - [erporoc]\n");
     }
-    return _read;
+    return bytes_read;
 }

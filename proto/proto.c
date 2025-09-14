@@ -17,12 +17,15 @@ int build_packet(packet **pkt,uint8_t type, const char *message) {
 
 int parce_packet(int fd,uint8_t **payload) {
     packet_header header;
-    Read(fd,&header,sizeof(packet_header));
+    ssize_t hnread=Read(fd,&header,sizeof(packet_header));
 
+    if(hnread==0 || hnread==-2) {
+        return -2; //client crashed or disconnected
+    }
     *payload = Malloc(header.payload_size + 1);
     ssize_t nread=Read(fd,*payload,header.payload_size);
-    if(nread<=0){  //52
-        return -1;
+    if(nread==0 || nread==-2) {
+        return -2; //client crashed or disconnected
     }
 
     (*payload)[header.payload_size] = '\0';

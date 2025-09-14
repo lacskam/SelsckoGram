@@ -8,7 +8,7 @@ void* handle_client(void* arg) {
     while(1) {
         uint8_t *payload = NULL;
         int nread = parce_packet(fd, &payload);
-        if(nread==-1) {   //client crashed or disconnected
+        if(nread==-2) {   //client crashed or disconnected
             free(payload);
             break;
         }
@@ -28,7 +28,6 @@ void* handle_client(void* arg) {
 
     }
     close(fd);
-    printf("[LOG] - client disconnected - [handle_client]\n");
     return NULL;
 
 }
