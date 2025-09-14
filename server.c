@@ -30,19 +30,21 @@ int main() {
 
     while (1) {
         printf("[LOG] - waiting clients - [server]\n");
-        int* client_fd = Malloc(sizeof(int));
-
-        *client_fd = Accept(servSocket, (struct sockaddr *)&adr,&adrlen);
+        int client_fd = Accept(servSocket, (struct sockaddr *)&adr,&adrlen);
 
         printf("[LOG] - client conected - [server]\n");
-        push_connected_client(*client_fd);
+
+        int* client_id=Malloc(sizeof(int));
+        *client_id=push_connected_client(client_fd);
+
 
         pthread_t tid;
 
-        if (pthread_create(&tid,NULL,handle_client,client_fd)!=0) {
+        if (pthread_create(&tid,NULL,handle_client,client_id)!=0) {
             perror("[LOG] - pthread_create error - [server]");
-            close(*client_fd);
-            free(client_fd);
+            remove_disconnected_client(client_id);
+            close(client_fd);
+            free(client_id);
         } else {
             pthread_detach(tid);
         }

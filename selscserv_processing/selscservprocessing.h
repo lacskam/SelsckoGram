@@ -24,11 +24,11 @@ struct users {
 
 
 extern struct users *selsc_users;
-
+extern pthread_mutex_t users_mutex;
 
 
 void* handle_client(void* arg);
-
+int get_user_fd(int id);
 int push_connected_client(int fd);
 int remove_disconnected_client(int id);
 

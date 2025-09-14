@@ -25,6 +25,8 @@ int parce_packet(int fd,uint8_t **payload) {
     *payload = Malloc(header.payload_size + 1);
     ssize_t nread=Read(fd,*payload,header.payload_size);
     if(nread==0 || nread==-2) {
+        free(payload);
+        *payload=NULL;
         return -2; //client crashed or disconnected
     }
 
