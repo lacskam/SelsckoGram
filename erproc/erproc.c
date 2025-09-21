@@ -9,21 +9,15 @@
 int Socket(int domain, int type,int protocol) {
     int res = socket(domain, type, protocol);
     if (res == -1) {
-        perror("[ERROR] - socket create error - [erproc]");
-        printf("\n");
-        exit(EXIT_FAILURE);
+        perror("[ERROR] - Socket create error - [erproc]");
     }
-
     return res;
 }
 
 void Bind(int sockFd,const struct sockaddr *addr, socklen_t addrlen) {
     int res = bind(sockFd,addr,addrlen);
     if (res == -1) {
-        perror("[ERROR] - bind error - [erproc]");
-        printf("\n");
-        close(sockFd);
-        exit(EXIT_FAILURE);
+        perror("[ERROR] - Bind error - [erproc]");
     }
 
 }
@@ -31,25 +25,16 @@ void Bind(int sockFd,const struct sockaddr *addr, socklen_t addrlen) {
 void Listen(int sockFd, int backlog) {
     int res = listen(sockFd,backlog);
     if (res == -1) {
-        perror("[ERROR] - listen error - [erproc]");
-        printf("\n");
-        exit(EXIT_FAILURE);
+        perror("[ERROR] - Listen error - [erproc]");
     }
-
-
 }
 
 
 int Accept(int sockFd, struct sockaddr *addr, socklen_t *addrlen) {
     int res = accept(sockFd,addr,addrlen);
     if (res == -1) {
-        perror("[ERROR] - accept error - [erproc]");
-        printf("\n");
-        exit(EXIT_FAILURE);
+        perror("[ERROR] - Accept error - [erproc]");
     }
-
-
-
     return res;
 }
 
@@ -59,19 +44,14 @@ void Connect(int sockFd,const struct sockaddr *addr, socklen_t addrlen) {
     int res = connect(sockFd,addr,addrlen);
     if (res == -1) {
         perror("[ERROR] - Connect error - [erproc]");
-        printf("\n");
-        exit(EXIT_FAILURE);
     }
-
 }
 
 void *Malloc(size_t size) {
     void *ptr=malloc(size);
     if(!ptr)
     {
-        perror("[ERROR] - Memory allocation failed - [erproc]");
-        printf("\n");
-        exit(EXIT_FAILURE);
+        puts("[ERROR] - Memory allocation failed - [erproc]");
     }
     return ptr;
 }
@@ -81,9 +61,7 @@ int Write(int fd, void *buf, size_t size)
 {
     int _write=write(fd,buf,size);
     if(_write==-1){
-        perror("[ERROR] - write error - [erproc]");
-        printf("\n");
-        close(fd);
+        perror("[ERROR] - Write error - [erproc]");
         return -1;
     }
     return 0;

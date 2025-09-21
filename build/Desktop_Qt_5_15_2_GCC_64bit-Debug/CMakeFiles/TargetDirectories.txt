@@ -1,7 +1,0 @@
-/home/andrey/SelsckoGram/build/Desktop_Qt_5_15_2_GCC_64bit-Debug/CMakeFiles/selsckoGram.dir
-/home/andrey/SelsckoGram/build/Desktop_Qt_5_15_2_GCC_64bit-Debug/CMakeFiles/edit_cache.dir
-/home/andrey/SelsckoGram/build/Desktop_Qt_5_15_2_GCC_64bit-Debug/CMakeFiles/rebuild_cache.dir
-/home/andrey/SelsckoGram/build/Desktop_Qt_5_15_2_GCC_64bit-Debug/CMakeFiles/list_install_components.dir
-/home/andrey/SelsckoGram/build/Desktop_Qt_5_15_2_GCC_64bit-Debug/CMakeFiles/install.dir
-/home/andrey/SelsckoGram/build/Desktop_Qt_5_15_2_GCC_64bit-Debug/CMakeFiles/install/local.dir
-/home/andrey/SelsckoGram/build/Desktop_Qt_5_15_2_GCC_64bit-Debug/CMakeFiles/install/strip.dir

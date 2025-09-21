@@ -15,9 +15,12 @@ include_directories(
 add_executable(selsckoGram server.c
     erproc/erproc.h erproc/erproc.c
     proto/proto.h proto/proto.c
+    proto/packet_type.c
+    proto/packet_type.h
     proto/selsc_client/selsc_client.c
     proto/selsc_client/selsc_client.h
-    selscserv_processing/selscservprocessing.h selscserv_processing/selscservprocessing.c)
+    selscserv_processing/selscservprocessing.h selscserv_processing/selscservprocessing.c
+    )
 
 include(GNUInstallDirs)
 install(TARGETS selsckoGram

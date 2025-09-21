@@ -29,22 +29,18 @@ int main() {
     int fd=STAUS_ACCEPTING;
 
     while (1) {
-        printf("[LOG] - waiting clients - [server]\n");
-        int client_fd = Accept(servSocket, (struct sockaddr *)&adr,&adrlen);
+        puts("[LOG] - Waiting clients - [server]\n");
+        int* client_fd =Malloc(sizeof(int));
+        *client_fd=Accept(servSocket, (struct sockaddr *)&adr,&adrlen);
 
-        printf("[LOG] - client conected - [server]\n");
-
-        int* client_id=Malloc(sizeof(int));
-        *client_id=push_connected_client(client_fd);
-
+        puts("[LOG] - Client conected - [server]\n");
 
         pthread_t tid;
 
-        if (pthread_create(&tid,NULL,handle_client,client_id)!=0) {
-            perror("[LOG] - pthread_create error - [server]");
-            remove_disconnected_client(client_id);
+        if (pthread_create(&tid,NULL,handle_client,client_fd)!=0) {
+            perror("[ERROR] - Pthread_create error - [server]");
             close(client_fd);
-            free(client_id);
+            free(client_fd);
         } else {
             pthread_detach(tid);
         }
@@ -54,7 +50,3 @@ int main() {
 
     return 0;
 }
-
-
-
-

@@ -10,6 +10,7 @@
 #include <string.h>
 #include <pthread.h>
 #include <glib.h>
+#include "../proto/packet_type.h"
 #include "../erproc/erproc.h"
 #include "../proto/proto.h"
 #include "selsc_client/selsc_client.h"
@@ -26,7 +27,7 @@ struct users {
 extern struct users *selsc_users;
 extern pthread_mutex_t users_mutex;
 
-
+void* ping_client(void* arg);
 void* handle_client(void* arg);
 int get_user_fd(int id);
 int push_connected_client(int fd);
