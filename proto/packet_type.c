@@ -20,8 +20,8 @@ int is_packet_type_valid(uint8_t type)
     switch(type) {
         case PACKET_TYPE_MESSAGE:
         case PACKET_TYPE_PING:
-            return 0;             // valid
+            return 0;
         default:
-            return -1;             // invalid
+            return -1;
     }
 }

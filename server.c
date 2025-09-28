@@ -13,6 +13,8 @@
 #define STAUS_ACCEPTING -111
 #include "selscserv_processing/selscservprocessing.h"
 
+#include "database.h"
+
 struct users *selsc_users = NULL;
 
 int main() {
@@ -28,6 +30,9 @@ int main() {
     socklen_t adrlen = sizeof adr;
     int fd=STAUS_ACCEPTING;
 
+    db_connect();
+
+
     while (1) {
         puts("[LOG] - Waiting clients - [server]\n");
         int* client_fd =Malloc(sizeof(int));
@@ -39,7 +44,7 @@ int main() {
 
         if (pthread_create(&tid,NULL,handle_client,client_fd)!=0) {
             perror("[ERROR] - Pthread_create error - [server]");
-            close(client_fd);
+            close(*client_fd);
             free(client_fd);
         } else {
             pthread_detach(tid);
