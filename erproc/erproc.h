@@ -2,6 +2,7 @@
 #define ERPROC_H
 
 #include <sys/types.h>
+#include <sys/socket.h>
 
 
 int Socket(int domain, int type,int protocol) ;

@@ -13,7 +13,7 @@
 #define STAUS_ACCEPTING -111
 #include "selscserv_processing/selscservprocessing.h"
 
-#include "database.h"
+#include "database/database.h"
 
 struct users *selsc_users = NULL;
 
@@ -31,7 +31,15 @@ int main() {
     int fd=STAUS_ACCEPTING;
 
     db_connect();
+    // const char* login="asd";
+    // char* salt=get_salt(login);
+    // const char* password="asd";
 
+    // char* hash_pas=hash_password(password,salt);
+    // printf("pas:%s\nsalt:%s\nhashed_pas:%s\n",password,salt, hash_pas);
+    const char* password="asd";
+    char* login="asd1";
+    verify_password(login,password);
 
     while (1) {
         puts("[LOG] - Waiting clients - [server]\n");
