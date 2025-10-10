@@ -2,8 +2,9 @@
 #define PACKET_TYPE_H
 #include <stdio.h>
 #include <stdint.h>
-#define PACKET_TYPE_MESSAGE    0x01
-#define PACKET_TYPE_PING       0x03
+#define PACKET_TYPE_MESSAGE  0x01
+#define PACKET_TYPE_AUTH     0x03
+#define PACKET_TYPE_PING     0x04
 
 
 const char* get_str_type(uint8_t type);

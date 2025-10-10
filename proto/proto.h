@@ -28,11 +28,8 @@ typedef struct {
 
 typedef struct
 {
-
     packet_header header;
     uint8_t payload[];
-
-
 } packet;
 
 

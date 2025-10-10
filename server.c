@@ -7,13 +7,15 @@
 #include <unistd.h>
 #include <string.h>
 #include <pthread.h>
-#include"uthash.h"
+#include "uthash.h"
 #include "erproc/erproc.h"
 #include "proto/proto.h"
 #define STAUS_ACCEPTING -111
 #include "selscserv_processing/selscservprocessing.h"
 
-#include "database/database.h"
+#include "database/database_auth.h"
+#include "database/database_connect.h"
+#include "database/database_query.h"
 
 struct users *selsc_users = NULL;
 
@@ -31,14 +33,9 @@ int main() {
     int fd=STAUS_ACCEPTING;
 
     db_connect();
-    // const char* login="asd";
-    // char* salt=get_salt(login);
-    // const char* password="asd";
 
-    // char* hash_pas=hash_password(password,salt);
-    // printf("pas:%s\nsalt:%s\nhashed_pas:%s\n",password,salt, hash_pas);
     const char* password="asd";
-    char* login="asd1";
+    char* login="asd";
     verify_password(login,password);
 
     while (1) {

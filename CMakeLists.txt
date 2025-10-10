@@ -21,7 +21,8 @@ add_executable(selsckoGram server.c
     proto/selsc_client/selsc_client.c
     proto/selsc_client/selsc_client.h
     selscserv_processing/selscservprocessing.h selscserv_processing/selscservprocessing.c
-    database/database.h database/database.c
+    database/database_auth.c database/database_auth.h database/database_query.c database/database_query.h
+    database/database_connect.c database/database_connect.h
     )
 
 include(GNUInstallDirs)
