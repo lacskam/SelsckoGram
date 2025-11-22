@@ -45,7 +45,6 @@ int main() {
         }
 
         if (nread == 0) {
-            printf("end of file or client disconect\n");
             
         }
         printf("Тип: 0x%02X, Сообщение: %s\n", header.header.type, payload);
