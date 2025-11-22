@@ -9,9 +9,9 @@
 
 #define DB_NAME  "selsckogram"
 #define DB_HOST  "localhost"
-#define DB_USER  "andrey"
+#define DB_USER  "asdxx"
 #define DB_PORT  "5432"
-#define DB_PASSWORD "525252"
+#define DB_PASSWORD "1756"
 
 extern PGconn* _connect;
 
