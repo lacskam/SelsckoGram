@@ -14,7 +14,7 @@
 #include "../erproc/erproc.h"
 #include "../proto/proto.h"
 #include "selsc_client/selsc_client.h"
-#include"uthash.h"
+#include "../include/uthash/include/uthash.h"
 
 
 struct users {
